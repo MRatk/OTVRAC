@@ -1,13 +1,14 @@
 # OTVRAC
-# Skup podataka: Mobiteli
-
-Ovaj dataset sadrži popis 10 različith mobitela s pripadajućim godinama izdavanj i tvrtkom koja ih je napravila i izdvojenim verzijama. Podatci su organizirani na načina da imaju vezu roditelj-dijete između mobitela i verzija. U repozitoriju podatci su dostupni u JSON i CVS formatu.
 
 ## Metapodaci
+- **Naziv**: Mobiteli
 - **Autor**: Mihael Ratkovčić
+- **Opis**: Ovaj dataset sadrži popis 10 različith mobitela s pripadajućim godinama izdavanj i tvrtkom koja ih je napravila i izdvojenim verzijama. Podatci su organizirani na načina da imaju vezu roditelj-dijete između mobitela i verzija. U repozitoriju podatci su dostupni u JSON i CVS formatu.
 - **Licenca**: Creative Commons Attribution 4.0 International (CC BY 4.0)
+  - Odabrana licenca omogućava korisnicima slobodno nadograđivanje, uređivanje, korištenje i izmjenu sadržaja, uključujući komercijalne svrhe, sve dok se autoru pripisuje zasluga za originalno djelo.
 - **Verzija**: 1.0
 - **Jezik**: Hrvatski
+- **Format**: JSON, CSV
 - **Atributi**:
   - Podatci iz baze roditelj:
     - `ime_modela`: Ime mobitela
@@ -23,6 +24,9 @@ Ovaj dataset sadrži popis 10 različith mobitela s pripadajućim godinama izdav
     - `kamera_mp`: Količina megapiksela kamere
     - `visina_inch`: Visina mobitela u inčima
     - `baterija_mah`: Snaga baterije u mAh
+      
+- **Datum ažuriranja**: 27.10.2024
+- **Kontakt**: mihael.ratkovcic@fer.hr
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
