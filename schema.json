@@ -3,11 +3,11 @@
     "$id": "https://github.com/MRatk/OTVRAC/blob/88f0a15d70c5b807a17f59f0920c7eb4586e0570/schema.json",
     "type": "array",
     "default": [],
-    "title": "Podatci o mobitelima",
+    "title": "Mobiteli",
     "description": "Podatci o raznim mobitelima i njihovim verzijama",
     "items": {
         "type": "object",
-        "title": "Mobiteli",
+        "title": "mobiteli",
         "description": "Objekt koji predstavlja jedan mobitel",
         "required": [
             "model",
@@ -33,7 +33,7 @@
             },
             "verzije": {
                 "type": "array",
-                "title": "Verzije mobitela",
+                "title": "verzije",
                 "items": {
                     "type": "object",
                     "title": "Verzija",
