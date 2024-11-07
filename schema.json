@@ -1,0 +1,97 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://github.com/MRatk/OTVRAC/blob/main/schema.json",
+    "type": "array",
+    "default": [],
+    "title": "Podatci o mobitelima",
+    "description": "Podatci o raznim mobitelima i njihovim verzijama",
+    "items": {
+        "type": "object",
+        "title": "Mobiteli",
+        "description": "Objekt koji predstavlja jedan mobitel",
+        "required": [
+            "model",
+            "tvrtka",
+            "godina_proizvodnje",
+            "verzije"
+        ],
+        "properties": {
+            "model": {
+                "type": "string",
+                "title": "Naziv mobitela",
+                "description": "Naziv modela mobitela"
+            },
+            "tvrtka": {
+                "type": "string",
+                "title": "Proizvođač",
+                "description": "Naziv tvrtke koja proizvodi mobitel"
+            },
+            "godina_proizvodnje": {
+                "type": "integer",
+                "title": "Godina Porizvodnje",
+                "description": "Gdoina u kojoj je mobitel porizveden"
+            },
+            "verzije": {
+                "type": "array",
+                "title": "Verzije mobitela",
+                "items": {
+                    "type": "object",
+                    "title": "Verzija",
+                    "required": [
+                        "naziv_verzije",
+                        "cijena",
+                        "operacijski_sustav",
+                        "RAM",
+                        "tezina_gram",
+                        "kamera_mp",
+                        "visina_inch",
+                        "baterija_mah"
+                    ],
+                    "properties": {
+                        "naziv_verzije": {
+                            "type": "string",
+                            "title": "Naziv verzije",
+                            "description": "Naziv specifične verzije mobitela"
+                        },
+                        "cijena": {
+                            "type": "integer",
+                            "title": "Cijena",
+                            "description": "Cijena te verzije mobitela"
+                        },
+                        "operacijski_sustav": {
+                            "type": "string",
+                            "title": "Operacijski sustav",
+                            "description": "Naziv operacijskog sustava koji koristi mobitel"
+                        },
+                        "RAM": {
+                            "type": "integer",
+                            "title": "RAM",
+                            "description": "Količina RAM memorije u GB"
+                        },
+                        "tezina_gram": {
+                            "type": "integer",
+                            "title": "Težina",
+                            "description": "Težina mobitela u gramima"
+                        },
+                        "kamera_mp": {
+                            "type": "integer",
+                            "title": "Kamera",
+                            "description": "Rezolucija kamere u megapikselima"
+                        },
+                        "visina_inch": {
+                            "type": "number",
+                            "title": "Visina",
+                            "description": "Visina mobitela u inčima"
+                        },
+                        "baterija_mah": {
+                            "type": "integer",
+                            "title": "Baterija",
+                            "description": "Kapacitet baterije u mAh"
+                        }
+                    }
+                }
+            }
+                    
+        }
+    }
+}
