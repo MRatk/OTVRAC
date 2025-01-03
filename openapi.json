@@ -1,0 +1,493 @@
+{
+  "openapi": "3.0.3",
+  "servers": [{
+    "url": "http://localhost:3000",
+    "description": "Local Server"
+  }],
+  "info": {
+    "title": "3. Laboratorijska vježba",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "mihael.ratkovcic@fer.hr"
+    },
+    "license": {
+      "name": "creative commons licence 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "version": "3.0.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Generate home page",
+        "description": "Gives the HTML file to user",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "example": "<html>...</html>"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/db": {
+      "get": {
+        "summary": "Get the whole database",
+        "description": "Gives the user copy of the whole database",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/databaseResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/db/{ime_modela}/version_name/{naziv_verzije}": {
+      "get": {
+        "summary": "Find phone model by name",
+        "description": "Gets phone model by name",
+        "parameters": [
+          {
+            "name": "ime_modela",
+            "in": "path",
+            "description": "model name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "naziv_verzije",
+            "in": "path",
+            "description": "version name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/mobiteli.json": {
+      "get": {
+        "summary": "Get the whole database data in JSON format",
+        "description": "Gives the user copy of the whole database in JSON file format",
+        "responses": {
+          "200": {
+            "description": "JSON file containing the entire database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "summary": "Get the openapi.json file",
+        "description": "Gives the user copy of the openapi.json file",
+        "responses": {
+          "200": {
+            "description": "openapi JSON file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/mobiteli.csv": {
+      "get": {
+        "summary": "Get the whole database data in CSV format",
+        "description": "Gives the user copy of the whole database in CSV file format",
+        "responses": {
+          "200": {
+            "description": "CSV file containing the entire database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/add_data": {
+      "post": {
+        "summary": "Add new data",
+        "description": "Add new data",
+        "requestBody": {
+          "description": "Data to add a new phone",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Mobiteli"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Additiong of data unsuccessful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server side error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete/{ime_modela}": {
+      "delete": {
+        "summary": "Deletes a phone",
+        "description": "delete a phone",
+        "parameters": [
+          {
+            "name": "ime_modela",
+            "in": "path",
+            "description": "Name of model",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "All paramethars must be present",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "description": "Server side error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/{ime_modela}/version_name/{naziv_verzije}": {
+      "put": {
+        "summary": "Updates data about phone version",
+        "description": "Updates specific version details for a phone model",
+        "parameters": [
+          {
+            "name": "ime_modela",
+            "in": "path",
+            "description": "Name of the phone model",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "naziv_verzije",
+            "in": "path",
+            "description": "Name of the phone version",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON payload containing version details to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cijena": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Updated price"
+                  },
+                  "operacijski_sustav": {
+                    "type": "string",
+                    "description": "Updated operating system"
+                  },
+                  "ram": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Updated RAM in GB"
+                  },
+                  "tezina_gram": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Updated weight in grams"
+                  },
+                  "kamera_mp": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Updated camera resolution in megapixels"
+                  },
+                  "visina_inch": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "Updated height in inches"
+                  },
+                  "baterija_mah": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Updated battery capacity in mAh"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated version details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "databaseResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "database": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Mobiteli"
+            }
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Mobiteli": {
+        "type": "object",
+        "properties": {
+          "ime_modela": {
+            "type": "string"
+          },
+          "tvrtka": {
+            "type": "string"
+          },
+          "godina_proizvodnje": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "naziv_verzije": {
+            "type": "string"
+          },
+          "cijena": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operacijski_sustav": {
+            "type": "string"
+          },
+          "ram": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tezina_gram": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kamera_mp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "visina_inch": {
+            "type": "number",
+            "format": "float"
+          },
+          "baterija_mah": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiResponse"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ApiResponse"
+            }
+          }
+        }
+      }
+    }
+  }
+}
