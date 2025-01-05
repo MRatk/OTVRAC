@@ -221,7 +221,7 @@ app.post('/add_data', async (req, res) => {
     }catch (error){
         return res.status(500).json({
             status: false,
-            message: error
+            message: "Server side error"
         })
     }
 })
@@ -312,7 +312,7 @@ app.put('/update/:ime_modela/version_name/:naziv_verzije', async (req, res) => {
         console.log(error)
         return res.status(500).json({
             status: false,
-            message: error
+            message: "Server side error"
         })
     }
 })
