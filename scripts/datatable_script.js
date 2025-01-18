@@ -3,24 +3,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     if(!response.ok){
         throw new Error('Receiving database data Error');
     }
-    const data = await response.json();
+    const responseJSON = await response.json();
+    const data = responseJSON.database
     //console.log(data);
     const tableBody = document.querySelector('#mobiteliTable tbody');
     tableBody.innerHTML = '';
+    const additionalPropertySearch = (properties, name) => {
+        const property = properties.find(prop => prop.name === name);
+        return property.value;
+    };
+
     data.forEach(dataRow => {
+        const publishingYear = additionalPropertySearch(dataRow.additionalProperty, "publishingYear");
+        const operatingSystem = additionalPropertySearch(dataRow.additionalProperty, "operatingSystem");
+        const RAM = additionalPropertySearch(dataRow.additionalProperty, "RAM");
+        const camera = additionalPropertySearch(dataRow.additionalProperty, "camera");
+        const battery = additionalPropertySearch(dataRow.additionalProperty, "battery");
         const row = `
                 <tr>
-                    <td>${dataRow.ime_modela}</td>
-                    <td>${dataRow.tvrtka}</td>
-                    <td>${dataRow.godina_proizvodnje}</td>
-                    <td>${dataRow.naziv_verzije}</td>
-                    <td>${dataRow.cijena}</td>
-                    <td>${dataRow.operacijski_sustav}</td>
-                    <td>${dataRow.ram}</td>
-                    <td>${dataRow.tezina_gram}</td>
-                    <td>${dataRow.kamera_mp}</td>
-                    <td>${dataRow.visina_inch}</td>
-                    <td>${dataRow.baterija_mah}</td>
+                    <td>${dataRow.name}</td>
+                    <td>${dataRow.brand.name}</td>
+                    <td>${publishingYear}</td>
+                    <td>${dataRow.model}</td>
+                    <td>${dataRow.offers.price}</td>
+                    <td>${operatingSystem}</td>
+                    <td>${RAM}</td>
+                    <td>${dataRow.weight.value}</td>
+                    <td>${camera}</td>
+                    <td>${dataRow.height.value}</td>
+                    <td>${battery}</td>
                 </tr>`;
         tableBody.insertAdjacentHTML('beforeend', row);
     });
@@ -33,12 +44,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         let fData = data;
 
         if(filterSelector !== "blank"){
+            //console.log("filter selector: ", filterSelector)
             fData = data.filter(colum =>{
-                if(colum[filterSelector]){
+                //console.log(colum)
+                if (filterSelector.includes('additionalProperty')) {
+                    const propertyName = filterSelector.split('.')[1];
+                    const prop = colum.additionalProperty.find(item => item.name === propertyName);
+                    if (prop) {
+                        return prop.value.toString().toLowerCase().includes(searchTerm);
+                    }
+                }else if (filterSelector === 'brand.name' && colum.brand && colum.brand.name) {
+                    return colum.brand.name.toLowerCase().includes(searchTerm);
+                } else if (filterSelector === 'offers.price' && colum.offers && colum.offers.price) {
+                    return colum.offers.price.toString().includes(searchTerm);
+                }
+                else if(colum[filterSelector]){
                     return colum[filterSelector].toString().toLowerCase().includes(searchTerm);
                 }
                 return false;
             });
+            //console.log(fData)
         }else{
             fData = data.filter(obj =>{
                 return Object.values(obj).some(colum =>{
@@ -49,19 +74,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         filteredData = fData;
         tableBody.innerHTML = '';
         fData.forEach(dataRow => {
+            const publishingYear = additionalPropertySearch(dataRow.additionalProperty, "publishingYear");
+            const operatingSystem = additionalPropertySearch(dataRow.additionalProperty, "operatingSystem");
+            const RAM = additionalPropertySearch(dataRow.additionalProperty, "RAM");
+            const camera = additionalPropertySearch(dataRow.additionalProperty, "camera");
+            const battery = additionalPropertySearch(dataRow.additionalProperty, "battery");
             const row = `
                 <tr>
-                    <td>${dataRow.ime_modela}</td>
-                    <td>${dataRow.tvrtka}</td>
-                    <td>${dataRow.godina_proizvodnje}</td>
-                    <td>${dataRow.naziv_verzije}</td>
-                    <td>${dataRow.cijena}</td>
-                    <td>${dataRow.operacijski_sustav}</td>
-                    <td>${dataRow.ram}</td>
-                    <td>${dataRow.tezina_gram}</td>
-                    <td>${dataRow.kamera_mp}</td>
-                    <td>${dataRow.visina_inch}</td>
-                    <td>${dataRow.baterija_mah}</td>
+                    <td>${dataRow.name}</td>
+                    <td>${dataRow.brand.name}</td>
+                    <td>${publishingYear}</td>
+                    <td>${dataRow.model}</td>
+                    <td>${dataRow.offers.price}</td>
+                    <td>${operatingSystem}</td>
+                    <td>${RAM}</td>
+                    <td>${dataRow.weight.value}</td>
+                    <td>${camera}</td>
+                    <td>${dataRow.height.value}</td>
+                    <td>${battery}</td>
                 </tr>`;
             tableBody.insertAdjacentHTML('beforeend', row);
         });

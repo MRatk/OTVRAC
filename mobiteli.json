@@ -1,222 +1,239 @@
 [
-    {
-        "model": "iPhone 4",
-        "tvrtka": "Apple",
-        "godina_proizvodnje": 2011,
-        "verzije": [
-            {
-                "naziv_verzije": "4S",
-                "cijena": 500,
-                "operacijski_sustav": "iOS 9",
-                "RAM": 1,
-                "tezina_gram": 140,
-                "kamera_mp": 8,
-                "visina_inch": 4.0,
-                "baterija_mah": 1430
-            }
-        ]
-    },
-    {
-        "model": "Samsung Galaxy Z Flip 6",
-        "tvrtka": "Samsung",
-        "godina_proizvodnje": 2024,
-        "verzije": [
-            {
-                "naziv_verzije": "Z Flip 6",
-                "cijena": 1000,
-                "operacijski_sustav": "Android 14",
-                "RAM": 8,
-                "tezina_gram": 187,
-                "kamera_mp": 12,
-                "visina_inch": 6.8,
-                "baterija_mah": 3700
-            }
-        ]
-    },
-    {
-        "model": "Nokia 6600",
-        "tvrtka": "Nokia",
-        "godina_proizvodnje": 2003,
-        "verzije": [
-            {
-                "naziv_verzije": "6600",
-                "cijena": 150,
-                "operacijski_sustav": "Symbian OS",
-                "RAM": 0,
-                "tezina_gram": 125,
-                "kamera_mp": 0,
-                "visina_inch": 2.0,
-                "baterija_mah": 850
-            }
-        ]
-    },
-    {
-        "model": "Google Pixel 9",
-        "tvrtka": "Google",
-        "godina_proizvodnje": 2024,
-        "verzije": [
-            {
-                "naziv_verzije": "Pixel 9 Pro",
-                "cijena": 950,
-                "operacijski_sustav": "Android 14",
-                "RAM": 12,
-                "tezina_gram": 210,
-                "kamera_mp": 50,
-                "visina_inch": 7.0,
-                "baterija_mah": 5050
-            }
-        ]
-    },
-    {
-        "model": "OnePlus Open",
-        "tvrtka": "OnePlus",
-        "godina_proizvodnje": 2023,
-        "verzije": [
-            {
-                "naziv_verzije": "Open",
-                "cijena": 850,
-                "operacijski_sustav": "Android 13",
-                "RAM": 16,
-                "tezina_gram": 239,
-                "kamera_mp": 48,
-                "visina_inch": 7.0,
-                "baterija_mah": 4800
-            }
-        ]
-    },
-    {
-        "model": "Xiaomi Redmi Note 8",
-        "tvrtka": "Xiaomi",
-        "godina_proizvodnje": 2019,
-        "verzije": [
-            {
-                "naziv_verzije": "Note 8",
-                "cijena": 200,
-                "operacijski_sustav": "Android 9",
-                "RAM": 4,
-                "tezina_gram": 190,
-                "kamera_mp": 48,
-                "visina_inch": 6.0,
-                "baterija_mah": 4000
-            }
-        ]
-    },
-    {
-        "model": "LG G3",
-        "tvrtka": "LG",
-        "godina_proizvodnje": 2014,
-        "verzije": [
-            {
-                "naziv_verzije": "G3",
-                "cijena": 300,
-                "operacijski_sustav": "Android 5",
-                "RAM": 3,
-                "tezina_gram": 149,
-                "kamera_mp": 13,
-                "visina_inch": 6.0,
-                "baterija_mah": 3000
-            }
-        ]
-    },
-    {
-        "model": "Huawei Mate 20",
-        "tvrtka": "Huawei",
-        "godina_proizvodnje": 2018,
-        "verzije": [
-            {
-                "naziv_verzije": "Mate 20 Pro",
-                "cijena": 800,
-                "operacijski_sustav": "Android 10",
-                "RAM": 6,
-                "tezina_gram": 189,
-                "kamera_mp": 40,
-                "visina_inch": 6.4,
-                "baterija_mah": 4200
-            },
-            {
-                "naziv_verzije": "Mate 20 Lite",
-                "cijena": 600,
-                "operacijski_sustav": "Android 9",
-                "RAM": 4,
-                "tezina_gram": 180,
-                "kamera_mp": 20,
-                "visina_inch": 6.1,
-                "baterija_mah": 4000
-            }
-        ]
-    },
-    {
-        "model": "Samsung Galaxy S24",
-        "tvrtka": "Samsung",
-        "godina_proizvodnje": 2024,
-        "verzije": [
-            {
-                "naziv_verzije": "S24 Ultra",
-                "cijena": 1200,
-                "operacijski_sustav": "Android 14",
-                "RAM": 12,
-                "tezina_gram": 233,
-                "kamera_mp": 200,
-                "visina_inch": 7.0,
-                "baterija_mah": 5000
-            },
-            {
-                "naziv_verzije": "S24+",
-                "cijena": 1000,
-                "operacijski_sustav": "Android 14",
-                "RAM": 8,
-                "tezina_gram": 220,
-                "kamera_mp": 108,
-                "visina_inch": 6.8,
-                "baterija_mah": 4500
-            },
-            {
-                "naziv_verzije": "S24",
-                "cijena": 900,
-                "operacijski_sustav": "Android 14",
-                "RAM": 8,
-                "tezina_gram": 200,
-                "kamera_mp": 50,
-                "visina_inch": 6.5,
-                "baterija_mah": 4200
-            }
-        ]
-    },
-    {
-        "model": "iPhone 16",
-        "tvrtka": "Apple",
-        "godina_proizvodnje": 2024,
-        "verzije": [
-            {
-                "naziv_verzije": "16 Pro Max",
-                "cijena": 1300,
-                "operacijski_sustav": "iOS 18",
-                "RAM": 8,
-                "tezina_gram": 240,
-                "kamera_mp": 48,
-                "visina_inch": 7.0,
-                "baterija_mah": 4350
-            },
-            {
-                "naziv_verzije": "16 Pro",
-                "cijena": 1100,
-                "operacijski_sustav": "iOS 18",
-                "RAM": 8,
-                "tezina_gram": 220,
-                "kamera_mp": 48,
-                "visina_inch": 6.7,
-                "baterija_mah": 4200
-            },
-            {
-                "naziv_verzije": "16",
-                "cijena": 950,
-                "operacijski_sustav": "iOS 18",
-                "RAM": 6,
-                "tezina_gram": 210,
-                "kamera_mp": 12,
-                "visina_inch": 6.1,
-                "baterija_mah": 3800
-            }
-        ]
-    }
+  {
+    "model": "Samsung Galaxy S24",
+    "tvrtka": "Samsung",
+    "godina_proizvodnje": 2024,
+    "verzije": [
+      {
+        "naziv_verzije": "S24 Ultra",
+        "cijena": 1200,
+        "operacijski_sustav": "Android 14",
+        "RAM": 12,
+        "tezina_gram": 233,
+        "kamera_mp": 200,
+        "visina_inch": 7,
+        "baterija_mah": 5000
+      },
+      {
+        "naziv_verzije": "S24+",
+        "cijena": 1000,
+        "operacijski_sustav": "Android 14",
+        "RAM": 8,
+        "tezina_gram": 220,
+        "kamera_mp": 108,
+        "visina_inch": 6.8,
+        "baterija_mah": 4500
+      },
+      {
+        "naziv_verzije": "S24",
+        "cijena": 900,
+        "operacijski_sustav": "Android 14",
+        "RAM": 8,
+        "tezina_gram": 200,
+        "kamera_mp": 50,
+        "visina_inch": 6.5,
+        "baterija_mah": 4200
+      }
+    ]
+  },
+  {
+    "model": "iPhone 16",
+    "tvrtka": "Apple",
+    "godina_proizvodnje": 2024,
+    "verzije": [
+      {
+        "naziv_verzije": "16 Pro Max",
+        "cijena": 1300,
+        "operacijski_sustav": "iOS 18",
+        "RAM": 8,
+        "tezina_gram": 240,
+        "kamera_mp": 48,
+        "visina_inch": 7,
+        "baterija_mah": 4350
+      },
+      {
+        "naziv_verzije": "16 Pro",
+        "cijena": 1100,
+        "operacijski_sustav": "iOS 18",
+        "RAM": 8,
+        "tezina_gram": 220,
+        "kamera_mp": 48,
+        "visina_inch": 6.7,
+        "baterija_mah": 4200
+      },
+      {
+        "naziv_verzije": "16",
+        "cijena": 950,
+        "operacijski_sustav": "iOS 18",
+        "RAM": 6,
+        "tezina_gram": 210,
+        "kamera_mp": 12,
+        "visina_inch": 6.1,
+        "baterija_mah": 3800
+      }
+    ]
+  },
+  {
+    "model": "Huawei Mate 20",
+    "tvrtka": "Huawei",
+    "godina_proizvodnje": 2018,
+    "verzije": [
+      {
+        "naziv_verzije": "Mate 20 Pro",
+        "cijena": 800,
+        "operacijski_sustav": "Android 10",
+        "RAM": 6,
+        "tezina_gram": 189,
+        "kamera_mp": 40,
+        "visina_inch": 6.4,
+        "baterija_mah": 4200
+      },
+      {
+        "naziv_verzije": "Mate 20 Lite",
+        "cijena": 600,
+        "operacijski_sustav": "Android 9",
+        "RAM": 4,
+        "tezina_gram": 180,
+        "kamera_mp": 20,
+        "visina_inch": 6.1,
+        "baterija_mah": 4000
+      }
+    ]
+  },
+  {
+    "model": "Google Pixel 9",
+    "tvrtka": "Google",
+    "godina_proizvodnje": 2024,
+    "verzije": [
+      {
+        "naziv_verzije": "Pixel 9 Pro",
+        "cijena": 950,
+        "operacijski_sustav": "Android 14",
+        "RAM": 12,
+        "tezina_gram": 210,
+        "kamera_mp": 50,
+        "visina_inch": 7,
+        "baterija_mah": 5050
+      }
+    ]
+  },
+  {
+    "model": "OnePlus Open",
+    "tvrtka": "OnePlus",
+    "godina_proizvodnje": 2023,
+    "verzije": [
+      {
+        "naziv_verzije": "Open",
+        "cijena": 850,
+        "operacijski_sustav": "Android 13",
+        "RAM": 16,
+        "tezina_gram": 239,
+        "kamera_mp": 48,
+        "visina_inch": 7,
+        "baterija_mah": 4800
+      }
+    ]
+  },
+  {
+    "model": "Samsung Galaxy Z Flip 6",
+    "tvrtka": "Samsung",
+    "godina_proizvodnje": 2024,
+    "verzije": [
+      {
+        "naziv_verzije": "Z Flip 6",
+        "cijena": 1000,
+        "operacijski_sustav": "Android 14",
+        "RAM": 8,
+        "tezina_gram": 187,
+        "kamera_mp": 12,
+        "visina_inch": 6.8,
+        "baterija_mah": 3700
+      }
+    ]
+  },
+  {
+    "model": "Nokia 6600",
+    "tvrtka": "Nokia",
+    "godina_proizvodnje": 2003,
+    "verzije": [
+      {
+        "naziv_verzije": "6600",
+        "cijena": 150,
+        "operacijski_sustav": "Symbian OS",
+        "RAM": 0,
+        "tezina_gram": 125,
+        "kamera_mp": 0,
+        "visina_inch": 2,
+        "baterija_mah": 850
+      }
+    ]
+  },
+  {
+    "model": "iPhone 4",
+    "tvrtka": "Apple",
+    "godina_proizvodnje": 2011,
+    "verzije": [
+      {
+        "naziv_verzije": "4S",
+        "cijena": 500,
+        "operacijski_sustav": "iOS 9",
+        "RAM": 1,
+        "tezina_gram": 140,
+        "kamera_mp": 8,
+        "visina_inch": 4,
+        "baterija_mah": 1430
+      }
+    ]
+  },
+  {
+    "model": "Xiaomi Redmi Note 8",
+    "tvrtka": "Xiaomi",
+    "godina_proizvodnje": 2019,
+    "verzije": [
+      {
+        "naziv_verzije": "Note 8",
+        "cijena": 200,
+        "operacijski_sustav": "Android 9",
+        "RAM": 4,
+        "tezina_gram": 190,
+        "kamera_mp": 48,
+        "visina_inch": 6,
+        "baterija_mah": 4000
+      }
+    ]
+  },
+  {
+    "model": "LG G3",
+    "tvrtka": "LG",
+    "godina_proizvodnje": 2014,
+    "verzije": [
+      {
+        "naziv_verzije": "G3",
+        "cijena": 300,
+        "operacijski_sustav": "Android 5",
+        "RAM": 3,
+        "tezina_gram": 149,
+        "kamera_mp": 13,
+        "visina_inch": 6,
+        "baterija_mah": 3000
+      }
+    ]
+  },
+  {
+    "model": "string",
+    "tvrtka": "string",
+    "godina_proizvodnje": 111,
+    "verzije": [
+      {
+        "naziv_verzije": "string",
+        "cijena": 111,
+        "operacijski_sustav": "string",
+        "RAM": 111,
+        "tezina_gram": 111,
+        "kamera_mp": 111,
+        "visina_inch": 1.1,
+        "baterija_mah": 111
+      }
+    ]
+  }
 ]

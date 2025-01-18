@@ -1,3 +1,4 @@
+
 .whole{
     display: grid;
     place-items: center;
@@ -7,24 +8,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 500px;
     text-align: center;
-}
-.whole2{
-    display: grid;
-    place-items: center;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 800px;
-    text-align: center;
-}
-.whole3{
-    display: flex;            /* Koristi Flexbox za raspored */
-    justify-content: center;  /* Centriraj elemente horizontalno */
-    align-items: center;      /* Centriraj elemente vertikalno */
-    gap: 10px;                /* Razmak između elemenata */
-    padding: 30px;
-    text-align: center;
+
 }
 body {
     display: flex;
@@ -84,3 +68,15 @@ p {
     margin-top: 10px;
     color: #555;
 }
+
+.user{
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+.text{
+    font-size: 18px;
+    margin-bottom: 18px;
+    color: #333;
+}
+

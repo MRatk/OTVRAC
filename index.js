@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser');
 const { Pool } = require('pg');
+const { auth, requiresAuth} = require('express-openid-connect');
+const fs = require('fs');
+const session = require('express-session');
 
 
 const app = express();
@@ -15,6 +18,22 @@ const pool = new Pool({
     port: 5432,
 });
 
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: 'Jp1U8x1mlsXszyLfoFKfud9DZdbaBRGERQNT8w4D4_3Rf7HWxno1bWy40FWKiAWF',
+    baseURL: 'http://localhost:3000',
+    clientID: '65jkuMattnN9oPcZmX355YvPkOfVMXXD',
+    issuerBaseURL: 'https://dev-1toh3papmv4d6yrs.us.auth0.com'
+};
+
+app.use(session({
+    secret: 'c37b6e07e572cebb5919849d7e227d42d6f240e1da2fdb4812cc8f3b99f8f872\n',
+    resave: false,
+    saveUninitialized: true,
+}));
+
+app.use(auth(config));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -35,6 +54,126 @@ app.get('/', (req, res) => {
         });
     }
 });
+
+
+app.get('/login', (req, res) => {
+    if(!req.oidc.isAuthenticated()){
+        res.oidc.login({
+            prompt:'none'
+        });
+    }
+});
+
+app.get('/logout', (req, res)=>{
+    res.oidc.logout();
+})
+
+app.get('/profilPage', requiresAuth(), (req, res)=>{
+    res.sendFile(path.join(__dirname, 'public', 'profil.html'));
+})
+
+app.get('/api/users', (req, res) =>{
+    if(req.oidc.isAuthenticated()){
+        const user = req.oidc.user;
+        //console.log(user);
+        const jsonLD = {
+            "@context": "https://schema.org/",
+            "@type": "Person",
+            "givenName": user.nickname,
+            "email": user.email,
+            "performerIn": {
+                "@type": "Event",
+                "endDate": user.updated_at
+            }
+
+        };
+        return res.json({
+            logged: true,
+            jsonLD: jsonLD
+
+        })
+    }else{
+        return res.json({logged: false})
+    }
+});
+
+app.put('/refresh', requiresAuth(), async (req, res) => {
+    try {
+
+        const response = await pool.query(`
+            SELECT m.ime_modela, m.tvrtka, m.godina_proizvodnje,
+                   v.naziv_verzije, v.cijena, v.operacijski_sustav,
+                   v.ram, v.tezina_gram, v.kamera_mp,
+                   v.visina_inch, v.baterija_mah
+            FROM mobiteli m
+                     JOIN verzije v ON m.ime_modela = v.ime_modela;
+        `);
+
+        const jsonData = response.rows
+        const groupedData = {};
+
+
+        jsonData.forEach(row => {
+            if (!groupedData[row.ime_modela]) {
+                groupedData[row.ime_modela] = {
+                    model: row.ime_modela,
+                    tvrtka: row.tvrtka,
+                    godina_proizvodnje: row.godina_proizvodnje,
+                    verzije: []
+                };
+            }
+
+            groupedData[row.ime_modela].verzije.push({
+                naziv_verzije: row.naziv_verzije,
+                cijena: row.cijena,
+                operacijski_sustav: row.operacijski_sustav,
+                RAM: row.ram,
+                tezina_gram: row.tezina_gram,
+                kamera_mp: row.kamera_mp,
+                visina_inch: parseFloat(row.visina_inch),
+                baterija_mah: row.baterija_mah
+            });
+        });
+
+        const finalJsonData = Object.values(groupedData);
+
+
+        const jsonFilePath = path.join(__dirname, 'mobiteli.json');
+        const csvFilePath = path.join(__dirname, 'mobiteli.csv');
+
+        if (fs.existsSync(jsonFilePath)) {
+            fs.unlinkSync(jsonFilePath);
+        }
+        if (fs.existsSync(csvFilePath)) {
+            fs.unlinkSync(csvFilePath);
+        }
+
+        fs.writeFileSync(jsonFilePath, JSON.stringify(finalJsonData, null, 2));
+
+        let csvData = 'ime_modela,tvrtka,godina_proizvodnje,naziv_verzije,cijena,operacijski_sustav,ram,tezina_gram,kamera_mp,visina_inch,baterija_mah\n';
+        response.rows.forEach(row => {
+            csvData += `${row.ime_modela},${row.tvrtka},${row.godina_proizvodnje},${row.naziv_verzije},${row.cijena},${row.operacijski_sustav},${row.ram},${row.tezina_gram},${row.kamera_mp},${row.visina_inch},${row.baterija_mah}\n`;
+        });
+
+        fs.writeFileSync(csvFilePath, csvData);
+
+        res.status(200).json({
+            status: true,
+            message: 'Preslike uspješno osvježene.',
+            files: {
+                json: '/mobiteli.json',
+                csv: '/mobiteli.csv'
+            }
+        });
+    } catch (error) {
+        console.error('Greška prilikom osvježavanja preslika:', error);
+        res.status(500).json({
+            status: false,
+            message: 'Greška prilikom osvježavanja preslika.'
+        });
+    }
+});
+
 
 app.get('/mobiteli.json', (req, res) => {
     try{
@@ -78,17 +217,71 @@ app.get('/openapi.json', (req, res) => {
 app.get('/db', async (req, res) =>{
     try{
         const response = await pool.query(`
-    SELECT m.ime_modela, m.tvrtka, m.godina_proizvodnje, 
-           v.naziv_verzije, v.cijena, v.operacijski_sustav,
-           v.ram, v.tezina_gram, v.kamera_mp, 
-           v.visina_inch, v.baterija_mah
-    FROM mobiteli m
-    JOIN verzije v ON m.ime_modela = v.ime_modela;
-  `);
+            SELECT m.ime_modela, m.tvrtka, m.godina_proizvodnje,
+                   v.naziv_verzije, v.cijena, v.operacijski_sustav,
+                   v.ram, v.tezina_gram, v.kamera_mp,
+                   v.visina_inch, v.baterija_mah
+            FROM mobiteli m
+                     JOIN verzije v ON m.ime_modela = v.ime_modela;
+        `);
         //console.log(response);
+
+        const jsonLDArray = response.rows.map(row =>({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": row.ime_modela,
+            "brand": {
+                "@type": "Brand",
+                "name": row.tvrtka
+            },
+            "model": row.naziv_verzije,
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "HRK",
+                "price": row.cijena
+            },
+            "description": `Model: ${row.ime_modela} - Verzija: ${row.naziv_verzije}`,
+            "weight": {
+                "@type": "QuantitativeValue",
+                    "unitText": "g",
+                    "value": row.tezina_gram
+            },
+            "height": {
+                "@type": "QuantitativeValue",
+                "unitText": "inches",
+                "value": row.visina_inch
+            },
+            "additionalProperty":[
+                {
+                    "@type": "PropertyValue",
+                    "name": "operatingSystem",
+                    "value": row.operacijski_sustav
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "RAM",
+                    "value": row.ram
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "camera",
+                    "value": row.kamera_mp
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "battery",
+                    "value": row.baterija_mah
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "publishingYear",
+                    "value": row.godina_proizvodnje
+                }
+            ]
+        }));
         return res.status(200).json({
             status:true,
-            database:response.rows
+            database:jsonLDArray
         });
     }catch (error){
         return res.status(500).json({
@@ -124,10 +317,64 @@ app.get('/db/:ime_modela/version_name/:naziv_verzije', async (req, res) => {
                 message: `phone ${ime_modela} ${naziv_verzije} not found`
             })
         }
+        const data = response.rows[0];
+        const jsonLD = {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": data.ime_modela,
+            "brand": {
+                "@type": "Brand",
+                "name": data.tvrtka
+            },
+            "model": data.naziv_verzije,
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "HRK",
+                "price": data.cijena
+            },
+            "description": `Model: ${data.ime_modela} - Verzija: ${data.naziv_verzije}`,
+            "weight": {
+                "@type": "QuantitativeValue",
+                "unitText": "g",
+                "value": data.tezina_gram
+            },
+            "height": {
+                "@type": "QuantitativeValue",
+                "unitText": "inches",
+                "value": data.visina_inch
+            },
+            "additionalProperty":[
+                {
+                    "@type": "PropertyValue",
+                    "name": "operatingSystem",
+                    "value": data.operacijski_sustav
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "RAM",
+                    "value": data.ram
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "camera",
+                    "value": data.kamera_mp
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "battery",
+                    "value": data.baterija_mah
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "publishingYear",
+                    "value": data.godina_proizvodnje
+                }
+            ]
+        };
         //console.log(response);
         res.json({
             status: true,
-            data: response.rows[0]
+            jsonLD: jsonLD
         });
     } catch (error) {
         return res.status(500).json({
@@ -221,7 +468,7 @@ app.post('/add_data', async (req, res) => {
     }catch (error){
         return res.status(500).json({
             status: false,
-            message: "Server side error"
+            message: error
         })
     }
 })
@@ -312,7 +559,7 @@ app.put('/update/:ime_modela/version_name/:naziv_verzije', async (req, res) => {
         console.log(error)
         return res.status(500).json({
             status: false,
-            message: "Server side error"
+            message: "errori"
         })
     }
 })
