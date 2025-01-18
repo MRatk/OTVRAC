@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$schema": "https://json-schema.org/draft/schema",
     "$id": "https://github.com/MRatk/OTVRAC/blob/88f0a15d70c5b807a17f59f0920c7eb4586e0570/schema.json",
     "type": "array",
     "default": [],
