@@ -19,10 +19,10 @@
     text-align: center;
 }
 .whole3{
-    display: flex;            /* Koristi Flexbox za raspored */
-    justify-content: center;  /* Centriraj elemente horizontalno */
-    align-items: center;      /* Centriraj elemente vertikalno */
-    gap: 10px;                /* Razmak između elemenata */
+    display: flex;           
+    justify-content: center; 
+    align-items: center;      
+    gap: 10px;                
     padding: 30px;
     text-align: center;
 }
